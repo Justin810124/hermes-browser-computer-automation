@@ -53,19 +53,31 @@ Use:
 
 ## Launch Checklist
 
-1. Create a public GitHub repository.
-2. Push the current folder as the initial version.
-3. Add a clear demo GIF or short screen recording.
-4. Add three practical recipes:
-   - Fiverr seller profile draft
-   - Shopify product media upload
-   - WordPress post editing
+1. Create a public GitHub repository. Done.
+2. Push the current folder as the initial version. Done.
+3. Add practical recipes. Done for Fiverr, Shopify, WordPress, and generic uploads.
+4. Add a clear demo GIF or short screen recording.
 5. Open 5-10 good first issues before announcing.
 6. Publish a short post explaining the problem:
    - "Why agents fail on real browser tasks"
    - "When to use browser tools vs real Chrome"
    - "Why CAPTCHA is a human boundary, not an automation target"
 7. Share with Hermes users, AI agent builders, and browser automation communities.
+
+## Next Issues To Open
+
+Use these as GitHub issues:
+
+1. Add a 60-second demo GIF to the README.
+2. Add Windows UI Automation notes.
+3. Add Linux desktop automation notes.
+4. Add a Google Workspace recipe.
+5. Add an Upwork profile editing recipe.
+6. Add a reliability checklist for long form filling.
+7. Add screenshots for macOS Accessibility and Screen Recording setup.
+8. Add a compatibility matrix for Hermes versions and CuaDriver versions.
+9. Add a test fixture for validating skill frontmatter.
+10. Add a recipe review template for community contributions.
 
 ## Version Roadmap
 
@@ -81,8 +93,10 @@ Use:
 
 - Workflow recipes
 - Example prompts
-- Demo screenshots
 - Troubleshooting guide
+- Doctor script
+- Promotion copy
+- Demo screenshots
 
 ### v0.3
 

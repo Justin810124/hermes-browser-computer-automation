@@ -1,6 +1,28 @@
 # Hermes Browser Computer Automation
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
+![Safety](https://img.shields.io/badge/safety-user--in--the--loop-blue)
+
 A practical Hermes Agent skill for operating real Chrome sessions and macOS UI workflows: logged-in websites, form filling, seller dashboards, file uploads, gallery setup, and multi-step web tasks.
+
+## Quick Start
+
+```bash
+git clone https://github.com/Justin810124/hermes-browser-computer-automation.git
+cd hermes-browser-computer-automation
+bash scripts/install.sh
+bash scripts/doctor.sh
+```
+
+Then start a fresh Hermes session and ask:
+
+```text
+Use the browser-computer-automation skill.
+Use my real Chrome session to continue the page already open.
+Fill the form, save drafts, upload files if needed,
+and stop for CAPTCHA, PerimeterX, 2FA, identity, tax, payment, or publish.
+```
 
 This project teaches Hermes how to combine:
 
@@ -53,6 +75,24 @@ cp skills/productivity/browser-computer-automation/SKILL.md \
 ```
 
 Then restart or reset your Hermes session so skills are reloaded.
+
+## Check Your Setup
+
+Run:
+
+```bash
+bash scripts/doctor.sh
+```
+
+The doctor checks:
+
+- Hermes CLI availability
+- enabled Hermes toolsets
+- CuaDriver installation
+- CuaDriver macOS permissions
+- installed skill path
+
+See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) when a check fails.
 
 ## Required Hermes Toolsets
 
@@ -134,6 +174,13 @@ Fill the form, upload the best files from Downloads, save each section,
 and stop if you hit CAPTCHA, PerimeterX, identity verification, payment, tax, or publish.
 ```
 
+More examples:
+
+- [Fiverr seller profile](recipes/fiverr-seller-profile.md)
+- [Shopify product media upload](recipes/shopify-product-upload.md)
+- [WordPress post editing](recipes/wordpress-post-editing.md)
+- [Generic file upload workflow](recipes/generic-file-upload.md)
+
 ## Safety Policy
 
 This skill is designed for user-in-the-loop automation.
@@ -176,8 +223,19 @@ Out of scope:
 ├── LICENSE
 ├── CONTRIBUTING.md
 ├── SECURITY.md
+├── docs/
+│   ├── LAUNCH_PLAN.md
+│   ├── PROMOTION_COPY.md
+│   └── TROUBLESHOOTING.md
+├── recipes/
+│   ├── fiverr-seller-profile.md
+│   ├── generic-file-upload.md
+│   ├── shopify-product-upload.md
+│   └── wordpress-post-editing.md
 ├── scripts/
-│   └── install.sh
+│   ├── doctor.sh
+│   ├── install.sh
+│   └── validate_skill.py
 └── skills/
     └── productivity/
         └── browser-computer-automation/
