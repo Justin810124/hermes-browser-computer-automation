@@ -97,4 +97,11 @@ else
   overall=1
 fi
 
+if "$ROOT/scripts/test_operator.py"; then
+  pass "Operator routing tests passed"
+else
+  fail "Operator routing tests failed"
+  overall=1
+fi
+
 exit "$overall"

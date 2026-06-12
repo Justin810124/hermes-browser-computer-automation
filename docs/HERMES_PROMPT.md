@@ -2,6 +2,20 @@
 
 Use this prompt when you want Hermes to behave more like a careful browser/computer operator.
 
+## Best Version
+
+```text
+Use the browser-computer-automation skill.
+Before opening, clicking, typing, or navigating anything, run:
+
+scripts/hermes_operator.py --task "<my task>"
+
+Follow the operator's Control surface, Next command, Handoff, and Warnings exactly.
+If it says computer_use/CuaDriver, do not use browser_navigate.
+If it says Browser Use, run the provided command.
+If it says stop, ask me to handle or confirm the gate.
+```
+
 ```text
 Use the browser-computer-automation skill.
 

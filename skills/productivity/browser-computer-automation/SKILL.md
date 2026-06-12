@@ -1,7 +1,7 @@
 ---
 name: browser-computer-automation
 description: "Use when the user asks Hermes to operate Chrome or the Mac UI for logged-in websites, form filling, seller portals, uploads, web dashboards, browser tasks, or desktop workflows. Teaches Hermes to combine browser tools, computer_use, CuaDriver, file helpers, and vision without attempting to bypass CAPTCHA or anti-bot checks."
-version: 1.2.0
+version: 1.3.0
 author: Justin + Hermes Agent
 license: MIT
 platforms: [macos]
@@ -28,7 +28,15 @@ You do not magically bypass anti-bot systems. You use the safest available contr
 
 ## Execution Contract
 
-Before taking action, output a short control-surface decision:
+Before touching a browser, run the operator when this repo is available:
+
+```bash
+scripts/hermes_operator.py --task "<user task>"
+```
+
+Use its `Control surface`, `Next command`, `Handoff`, and `Warnings` as the execution plan.
+
+If this repo is not available, output a short control-surface decision manually:
 
 ```text
 Control surface: <API | Browser Use | Browser Use real Chrome | Hermes browser | computer_use/CuaDriver | stop>
@@ -147,6 +155,12 @@ Use Browser Use for ordinary web tasks when installed. First check:
 
 ```bash
 bash scripts/doctor.sh
+```
+
+Ask the operator for the route:
+
+```bash
+scripts/hermes_operator.py --task "<task>"
 ```
 
 Dry-run the final task prompt when unsure:

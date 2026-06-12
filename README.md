@@ -27,6 +27,12 @@ Optional but recommended for stronger web automation:
 bash scripts/install_browser_use.sh
 ```
 
+Ask the operator to choose the control surface:
+
+```bash
+scripts/hermes_operator.py --task "Use my real Chrome session to fill this form and stop before publish"
+```
+
 Then start a fresh Hermes session and ask:
 
 ```text
@@ -41,6 +47,8 @@ Or generate a stronger Hermes prompt:
 ```bash
 scripts/make_hermes_prompt.sh "Use my real Chrome session to fill this form and stop before publish"
 ```
+
+Best practice: tell Hermes to run `scripts/hermes_operator.py --task "<your task>"` before it opens or clicks anything.
 
 This project teaches Hermes how to combine:
 
@@ -58,6 +66,7 @@ It does **not** bypass CAPTCHA, PerimeterX, Cloudflare, 2FA, identity checks, ta
 This project does not copy Codex's private runtime into Hermes. Instead, it gives Hermes a practical control plane:
 
 - a skill that forces an explicit control-surface decision
+- an operator harness that routes tasks before browser action
 - a Browser Use runner for ordinary web tasks
 - real Chrome / CuaDriver guidance for desktop workflows
 - doctor checks that prove the local toolchain is available
@@ -230,6 +239,7 @@ For authenticated tasks that can use an existing Chrome profile:
 ```
 
 See [docs/BROWSER_USE_INTEGRATION.md](docs/BROWSER_USE_INTEGRATION.md).
+For the preflight router, see [docs/OPERATOR_HARNESS.md](docs/OPERATOR_HARNESS.md).
 
 ## Safety Policy
 
@@ -283,6 +293,7 @@ Out of scope:
 │   ├── HERMES_PROMPT.md
 │   ├── LAUNCH_CAMPAIGN.md
 │   ├── LAUNCH_PLAN.md
+│   ├── OPERATOR_HARNESS.md
 │   ├── PROMOTION_COPY.md
 │   └── TROUBLESHOOTING.md
 ├── recipes/
@@ -292,11 +303,15 @@ Out of scope:
 │   └── wordpress-post-editing.md
 ├── scripts/
 │   ├── doctor.sh
+│   ├── hermes_operator.py
 │   ├── install_browser_use.sh
 │   ├── install.sh
 │   ├── make_hermes_prompt.sh
 │   ├── run_browser_use_task.py
+│   ├── test_operator.py
 │   └── validate_skill.py
+├── tests/
+│   └── operator_cases.json
 └── skills/
     └── productivity/
         └── browser-computer-automation/

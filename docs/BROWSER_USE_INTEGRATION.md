@@ -28,6 +28,12 @@ HERMES_BROWSER_USE_MODEL=gpt-4.1-mini
 
 ## Run A Safe Dry Run
 
+First ask the operator to choose a route:
+
+```bash
+scripts/hermes_operator.py --task "Open example.com and summarize the page"
+```
+
 ```bash
 .venv-browser-use/bin/python scripts/run_browser_use_task.py \
   --dry-run \

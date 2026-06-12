@@ -1,0 +1,26 @@
+[
+  {
+    "task": "Open example.com and report the page title",
+    "expected_surface": "browser-use"
+  },
+  {
+    "task": "Use my logged-in Chrome profile to open my dashboard and report draft status",
+    "expected_surface": "browser-use-real-chrome"
+  },
+  {
+    "task": "Use my current Chrome window that is already open to fill this Fiverr seller form",
+    "expected_surface": "computer_use/CuaDriver"
+  },
+  {
+    "task": "Upload the best images from Downloads using the file picker",
+    "expected_surface": "computer_use/CuaDriver"
+  },
+  {
+    "task": "Click publish and submit the final payment setup",
+    "expected_surface": "stop"
+  },
+  {
+    "task": "Create a GitHub issue for this repository",
+    "expected_surface": "api/connector"
+  }
+]
