@@ -8,4 +8,6 @@ auth.json
 sessions/
 state.db
 __pycache__/
-
+.venv/
+.venv-browser-use/
+*.pyc

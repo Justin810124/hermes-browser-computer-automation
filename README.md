@@ -4,7 +4,7 @@
 ![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
 ![Safety](https://img.shields.io/badge/safety-user--in--the--loop-blue)
 
-A practical Hermes Agent skill for operating real Chrome sessions and macOS UI workflows: logged-in websites, form filling, seller dashboards, file uploads, gallery setup, and multi-step web tasks.
+A practical Hermes Agent integration layer for operating real Chrome sessions and macOS UI workflows: logged-in websites, form filling, seller dashboards, file uploads, gallery setup, and multi-step web tasks.
 
 ![Real Chrome demo](assets/demo-real.gif)
 
@@ -21,6 +21,12 @@ bash scripts/install.sh
 bash scripts/doctor.sh
 ```
 
+Optional but recommended for stronger web automation:
+
+```bash
+bash scripts/install_browser_use.sh
+```
+
 Then start a fresh Hermes session and ask:
 
 ```text
@@ -30,8 +36,15 @@ Fill the form, save drafts, upload files if needed,
 and stop for CAPTCHA, PerimeterX, 2FA, identity, tax, payment, or publish.
 ```
 
+Or generate a stronger Hermes prompt:
+
+```bash
+scripts/make_hermes_prompt.sh "Use my real Chrome session to fill this form and stop before publish"
+```
+
 This project teaches Hermes how to combine:
 
+- Browser Use for mature autonomous web workflows
 - Hermes `browser` tools for normal web automation
 - Hermes `computer_use` for the user's real Chrome session
 - CuaDriver for native macOS UI control
@@ -39,6 +52,16 @@ This project teaches Hermes how to combine:
 - vision checks for screenshots and visual verification
 
 It does **not** bypass CAPTCHA, PerimeterX, Cloudflare, 2FA, identity checks, tax forms, payment flows, or publish gates. Those remain user-controlled steps.
+
+## What This Is
+
+This project does not copy Codex's private runtime into Hermes. Instead, it gives Hermes a practical control plane:
+
+- a skill that forces an explicit control-surface decision
+- a Browser Use runner for ordinary web tasks
+- real Chrome / CuaDriver guidance for desktop workflows
+- doctor checks that prove the local toolchain is available
+- safety boundaries for human verification and irreversible actions
 
 ## Why
 
@@ -94,6 +117,7 @@ The doctor checks:
 
 - Hermes CLI availability
 - enabled Hermes toolsets
+- optional Browser Use engine
 - CuaDriver installation
 - CuaDriver macOS permissions
 - installed skill path
@@ -187,6 +211,26 @@ More examples:
 - [WordPress post editing](recipes/wordpress-post-editing.md)
 - [Generic file upload workflow](recipes/generic-file-upload.md)
 
+## Browser Use Integration
+
+For ordinary web tasks, this repo can route Hermes through Browser Use:
+
+```bash
+.venv-browser-use/bin/python scripts/run_browser_use_task.py \
+  --task "Visit https://duckduckgo.com and search for browser-use founders"
+```
+
+For authenticated tasks that can use an existing Chrome profile:
+
+```bash
+.venv-browser-use/bin/python scripts/run_browser_use_task.py \
+  --real-chrome \
+  --profile "Default" \
+  --task "Open my dashboard and report visible draft status. Stop before publishing."
+```
+
+See [docs/BROWSER_USE_INTEGRATION.md](docs/BROWSER_USE_INTEGRATION.md).
+
 ## Safety Policy
 
 This skill is designed for user-in-the-loop automation.
@@ -235,6 +279,8 @@ Out of scope:
 │   └── live-demo.html
 ├── docs/
 │   ├── DEMO_SCRIPT.md
+│   ├── BROWSER_USE_INTEGRATION.md
+│   ├── HERMES_PROMPT.md
 │   ├── LAUNCH_CAMPAIGN.md
 │   ├── LAUNCH_PLAN.md
 │   ├── PROMOTION_COPY.md
@@ -246,7 +292,10 @@ Out of scope:
 │   └── wordpress-post-editing.md
 ├── scripts/
 │   ├── doctor.sh
+│   ├── install_browser_use.sh
 │   ├── install.sh
+│   ├── make_hermes_prompt.sh
+│   ├── run_browser_use_task.py
 │   └── validate_skill.py
 └── skills/
     └── productivity/

@@ -1,13 +1,13 @@
 ---
 name: browser-computer-automation
 description: "Use when the user asks Hermes to operate Chrome or the Mac UI for logged-in websites, form filling, seller portals, uploads, web dashboards, browser tasks, or desktop workflows. Teaches Hermes to combine browser tools, computer_use, CuaDriver, file helpers, and vision without attempting to bypass CAPTCHA or anti-bot checks."
-version: 1.1.0
+version: 1.2.0
 author: Justin + Hermes Agent
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [chrome, browser, computer-use, cuadriver, macos, form-filling, uploads, automation, gui]
+    tags: [chrome, browser, browser-use, computer-use, cuadriver, macos, form-filling, uploads, automation, gui]
     category: productivity
     related_skills: [macos-computer-use, dogfood, hermes-agent]
 ---
@@ -21,9 +21,24 @@ When the user asks you to operate Chrome, fill forms, upload files, edit seller 
 You do not magically bypass anti-bot systems. You use the safest available control surface:
 
 1. Use APIs/connectors if they exist.
-2. Use Hermes browser tools for ordinary pages.
-3. Use `computer_use` or CuaDriver for the user's real Chrome session, native file pickers, visual UI, and logged-in sites.
-4. Stop at CAPTCHA, PerimeterX, 2FA, identity verification, tax forms, payment, publish, or legal attestation gates and ask the user to complete or confirm them.
+2. Use Browser Use when a mature web-agent loop is available and the task is an ordinary web workflow.
+3. Use Hermes browser tools for small ordinary pages or when Browser Use is unavailable.
+4. Use `computer_use` or CuaDriver for the user's current real Chrome session, native file pickers, visual UI, live desktop state, and handoffs.
+5. Stop at CAPTCHA, PerimeterX, 2FA, identity verification, tax forms, payment, publish, or legal attestation gates and ask the user to complete or confirm them.
+
+## Execution Contract
+
+Before taking action, output a short control-surface decision:
+
+```text
+Control surface: <API | Browser Use | Browser Use real Chrome | Hermes browser | computer_use/CuaDriver | stop>
+Reason: <one sentence>
+Stop gates: CAPTCHA, PerimeterX, 2FA, identity, tax, payment, publish, legal attestation
+```
+
+Then execute with that surface. If the first surface fails for a structural reason, re-state the new surface before switching.
+
+This contract exists because Hermes may otherwise keep using simple browser automation when real Chrome, Browser Use, or a human handoff would be better.
 
 ## Tool Reality
 
@@ -33,6 +48,7 @@ Codex-only tools cannot be copied into Hermes. The equivalent Hermes capabilitie
 |---|---|
 | Operate current real Chrome tab | `computer_use` targeting `app="Google Chrome"` |
 | Click/type/scroll native Mac UI | `computer_use` or CuaDriver MCP/CLI |
+| Mature autonomous web task loop | Browser Use runner in this repo |
 | Use a clean automation browser | `browser_navigate`, `browser_snapshot`, `browser_click`, `browser_type`, `browser_vision` |
 | Inspect/upload local files | `terminal` + `file` tools |
 | Judge screenshots/images | `vision` or `browser_vision` |
@@ -56,6 +72,10 @@ Required:
 - `terminal` enabled
 - `file` enabled
 - `skills` enabled
+
+Optional but recommended:
+
+- Browser Use integration installed with `bash scripts/install_browser_use.sh`
 
 If `computer_use` is missing from the current session, tell the user to enable it and reset/restart the Hermes session:
 
@@ -105,15 +125,54 @@ Use this exact decision tree:
 Does the task involve CAPTCHA, PerimeterX, reCAPTCHA, Cloudflare Turnstile, 2FA, identity, tax, payment, or publish?
 ├── Yes -> stop at the gate. Ask the user to complete/confirm. Continue only after user says done.
 └── No
-    Does it need the user's existing Chrome login/session/extensions?
-    ├── Yes -> use computer_use with app="Google Chrome".
+    Is there a purpose-built API/connector?
+    ├── Yes -> use that API/connector.
     └── No
-        Is it a normal web page that browser tools can open?
-        ├── Yes -> use browser_* tools.
-        └── No -> use computer_use/CuaDriver.
+        Is it an ordinary web workflow that Browser Use can handle?
+        ├── Yes -> use scripts/run_browser_use_task.py.
+        └── No
+            Does it need existing Chrome login/session/extensions?
+            ├── Yes -> use Browser Use real Chrome if no native UI handoff is needed; otherwise computer_use/CuaDriver.
+            └── No
+                Is it a small normal page that Hermes browser tools can open?
+                ├── Yes -> use browser_* tools.
+                └── No -> use computer_use/CuaDriver.
 ```
 
-For Fiverr and similar seller portals, prefer `computer_use` on real Chrome because automation browsers often trigger PerimeterX or lack the user's cookies.
+For Fiverr and similar seller portals, prefer real Chrome through `computer_use` when the current user session, PerimeterX, native upload UI, or handoff matters.
+
+## Browser Use Workflow
+
+Use Browser Use for ordinary web tasks when installed. First check:
+
+```bash
+bash scripts/doctor.sh
+```
+
+Dry-run the final task prompt when unsure:
+
+```bash
+.venv-browser-use/bin/python scripts/run_browser_use_task.py --dry-run --task "<task>"
+```
+
+Run an ordinary web task:
+
+```bash
+.venv-browser-use/bin/python scripts/run_browser_use_task.py --task "<task>"
+```
+
+Run with existing Chrome profile when the task needs login state but not native UI handoff:
+
+```bash
+.venv-browser-use/bin/python scripts/run_browser_use_task.py --real-chrome --profile "Default" --task "<task>"
+```
+
+Rules:
+
+- Do not use Browser Use to bypass verification gates.
+- Do not inspect cookies, local storage, passwords, payment data, identity documents, or tokens.
+- If Browser Use reaches CAPTCHA/PerimeterX/2FA/identity/tax/payment/publish, stop and switch to user handoff.
+- If Browser Use needs a native macOS file picker or the user's current visible Chrome tab, switch to `computer_use`/CuaDriver.
 
 ## Anti-Bot And Human Verification
 
@@ -326,4 +385,3 @@ Do not over-explain tool internals unless the user asks.
 - [ ] Save/continue succeeded.
 - [ ] CAPTCHA/PerimeterX/2FA/identity/tax/payment/publish gates were not bypassed.
 - [ ] Final response clearly states remaining user-owned steps.
-

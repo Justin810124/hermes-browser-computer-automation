@@ -48,6 +48,34 @@ if command -v hermes >/dev/null 2>&1; then
   done
 fi
 
+printf "\nBrowser Use optional engine\n"
+printf "%s\n" "---------------------------"
+if command -v uv >/dev/null 2>&1; then
+  pass "uv found: $(command -v uv)"
+else
+  warn "uv not found. Install uv before using Browser Use integration."
+fi
+
+if [ -x "$ROOT/.venv-browser-use/bin/python" ]; then
+  if "$ROOT/.venv-browser-use/bin/python" - <<'PY' >/tmp/hermes-browser-use-check.out 2>/tmp/hermes-browser-use-check.err
+import browser_use
+print(getattr(browser_use, "__version__", "unknown"))
+PY
+  then
+    pass "browser_use import works in .venv-browser-use: $(cat /tmp/hermes-browser-use-check.out)"
+  else
+    warn "browser_use is not importable in .venv-browser-use. Run: bash scripts/install_browser_use.sh"
+  fi
+else
+  warn ".venv-browser-use not found. Run: bash scripts/install_browser_use.sh for Browser Use engine."
+fi
+
+if [ -f "$ROOT/.env" ]; then
+  pass ".env file found"
+else
+  warn ".env not found. Browser Use needs an API key such as BROWSER_USE_API_KEY or OPENAI_API_KEY."
+fi
+
 printf "\nCuaDriver\n"
 printf "%s\n" "---------"
 if [ -x "$CUADRIVER" ]; then

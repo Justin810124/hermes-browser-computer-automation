@@ -108,6 +108,8 @@ Use these as GitHub issues:
 - Cross-platform notes for Windows and Linux
 - Integration examples for other local agents
 - Reliability checklist for form filling and uploads
+- Browser Use integration runner and install docs
+- Strong Hermes control-surface prompt
 
 ### v1.0
 

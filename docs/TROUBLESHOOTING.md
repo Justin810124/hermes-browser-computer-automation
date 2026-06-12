@@ -16,6 +16,40 @@ hermes tools enable computer_use
 
 Then restart or reset the Hermes session.
 
+## Hermes still acts like a basic web clicker
+
+Ask Hermes to use the stronger prompt in [HERMES_PROMPT.md](HERMES_PROMPT.md).
+
+The important part is forcing a control-surface decision before action:
+
+```text
+Control surface: Browser Use | Browser Use real Chrome | Hermes browser | computer_use/CuaDriver | stop
+Reason: ...
+Stop gates: CAPTCHA, PerimeterX, 2FA, identity, tax, payment, publish, legal attestation
+```
+
+If Hermes keeps using `browser` for logged-in or native UI work, explicitly tell it:
+
+```text
+This needs my current real Chrome window. Use computer_use/CuaDriver, not browser_navigate.
+```
+
+## Browser Use is missing
+
+Run:
+
+```bash
+bash scripts/install_browser_use.sh
+```
+
+Then create `.env` from `.env.example` and add an API key.
+
+Check:
+
+```bash
+bash scripts/doctor.sh
+```
+
 ## Chrome is visible but clicks or typing fail
 
 Run:
