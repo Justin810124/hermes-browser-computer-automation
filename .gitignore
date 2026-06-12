@@ -1,0 +1,11 @@
+.DS_Store
+*.log
+*.tmp
+*.bak
+.env
+config.yaml
+auth.json
+sessions/
+state.db
+__pycache__/
+
