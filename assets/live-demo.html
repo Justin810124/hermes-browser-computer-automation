@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes Browser Computer Automation Live Demo</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #0f172a;
+      --panel: #ffffff;
+      --muted: #64748b;
+      --line: #dbe3ef;
+      --blue: #2563eb;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 85%, rgba(16, 185, 129, .18), transparent 28rem),
+        radial-gradient(circle at 85% 15%, rgba(37, 99, 235, .20), transparent 26rem),
+        var(--bg);
+      color: #0f172a;
+    }
+
+    .shell {
+      width: min(1180px, calc(100vw - 56px));
+      margin: 0 auto;
+      padding: 28px 0;
+    }
+
+    header {
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      letter-spacing: 0;
+    }
+
+    .subhead {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 17px;
+    }
+
+    .badge {
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      color: #dbeafe;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1.55fr .85fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.22);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+      padding: 13px 16px;
+      background: #f8fafc;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #ef4444;
+    }
+    .dot:nth-child(2) { background: #f59e0b; }
+    .dot:nth-child(3) { background: #10b981; }
+
+    .url {
+      margin-left: 12px;
+      flex: 1;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--line);
+      padding: 7px 12px;
+      color: #475569;
+      font-size: 13px;
+    }
+
+    .content {
+      padding: 22px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .status {
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 7px;
+      color: #334155;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px;
+      font: inherit;
+      color: #0f172a;
+      background: white;
+    }
+
+    textarea {
+      min-height: 138px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .upload {
+      border: 1px dashed #94a3b8;
+      background: #f8fafc;
+      border-radius: 8px;
+      min-height: 116px;
+      display: grid;
+      place-items: center;
+      color: #64748b;
+      text-align: center;
+      padding: 12px;
+      font-weight: 700;
+    }
+
+    .upload.done {
+      border-style: solid;
+      color: #065f46;
+      background: linear-gradient(135deg, #dcfce7, #dbeafe);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .secondary { background: #e2e8f0; color: #0f172a; }
+    .primary { background: var(--blue); color: white; }
+    .danger { background: var(--red); color: white; }
+
+    .side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .agent {
+      background: #020617;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      box-shadow: 0 24px 70px rgba(0,0,0,.22);
+    }
+
+    .agent h3 {
+      margin: 0 0 14px;
+      color: white;
+      font-size: 20px;
+    }
+
+    .log {
+      display: grid;
+      gap: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .log div {
+      padding: 10px;
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 7px;
+    }
+
+    .gate {
+      border-left: 5px solid var(--amber);
+      padding: 18px;
+    }
+
+    .gate h3 {
+      margin: 0 0 9px;
+      color: #92400e;
+    }
+
+    .gate p {
+      margin: 0 0 14px;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <h1>Hermes Browser Computer Automation</h1>
+        <p class="subhead">Live demo page for real Chrome form filling, upload previews, and human-controlled gates.</p>
+      </div>
+      <div class="badge">Real Chrome demo</div>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="toolbar">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="url">http://localhost:8765/assets/live-demo.html</span>
+        </div>
+        <div class="content">
+          <div class="section-title">
+            <h2>Seller profile draft</h2>
+            <span class="status" id="status">Draft not saved</span>
+          </div>
+
+          <label for="title">Profile title</label>
+          <input id="title" data-testid="profile-title" placeholder="Enter a professional profile title">
+
+          <label for="description">Description</label>
+          <textarea id="description" data-testid="description" placeholder="Describe the service clearly and professionally"></textarea>
+
+          <label>Gallery upload preview</label>
+          <div class="grid">
+            <div class="upload" id="upload-1">Waiting for hero image</div>
+            <div class="upload" id="upload-2">Waiting for portrait image</div>
+            <div class="upload" id="upload-3">Waiting for scene image</div>
+          </div>
+
+          <div class="actions">
+            <button class="secondary" id="simulate-upload" data-testid="simulate-upload">Simulate Upload</button>
+            <button class="primary" id="save-draft" data-testid="save-draft">Save Draft</button>
+            <button class="danger" id="publish" data-testid="publish">Publish</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="agent">
+          <h3>Agent decision log</h3>
+          <div class="log">
+            <div id="log-1">1. Use real Chrome for logged-in workflows.</div>
+            <div id="log-2">2. Fill ordinary form fields safely.</div>
+            <div id="log-3">3. Use native UI patterns for uploads.</div>
+            <div id="log-4">4. Stop before publish or verification gates.</div>
+          </div>
+        </section>
+
+        <section class="card gate hidden" id="gate">
+          <h3>Human verification boundary</h3>
+          <p>This is where the agent pauses. CAPTCHA, PerimeterX, 2FA, identity, tax, payment, and publish gates remain user-controlled.</p>
+          <button class="secondary" id="acknowledge" data-testid="acknowledge">User takes over</button>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const status = document.getElementById('status');
+    const gate = document.getElementById('gate');
+    const uploads = [
+      document.getElementById('upload-1'),
+      document.getElementById('upload-2'),
+      document.getElementById('upload-3')
+    ];
+
+    document.getElementById('simulate-upload').addEventListener('click', () => {
+      ['hero-art.png', 'portrait-detail.png', 'scene-preview.png'].forEach((name, index) => {
+        uploads[index].textContent = 'Uploaded ' + name;
+        uploads[index].classList.add('done');
+      });
+      status.textContent = 'Uploads verified';
+    });
+
+    document.getElementById('save-draft').addEventListener('click', () => {
+      status.textContent = 'Draft saved';
+    });
+
+    document.getElementById('publish').addEventListener('click', () => {
+      gate.classList.remove('hidden');
+      status.textContent = 'Paused for user';
+      gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    document.getElementById('acknowledge').addEventListener('click', () => {
+      status.textContent = 'User-controlled gate acknowledged';
+    });
+  </script>
+</body>
+</html>

@@ -15,6 +15,15 @@ Do not show private account data, credentials, tokens, payment details, tax deta
 
 ## Suggested Recording
 
+The repo includes a safe local demo page:
+
+```bash
+python3 -m http.server 8765
+open http://localhost:8765/assets/live-demo.html
+```
+
+The current README GIF was recorded against that page in real Google Chrome. It shows a short version of the flow below.
+
 ### Scene 1: Setup, 5 seconds
 
 Show the repository README and Quick Start:
