@@ -10,6 +10,8 @@ A practical Hermes Agent skill for operating real Chrome sessions and macOS UI w
 
 This demo was recorded in real Google Chrome against the local page at [assets/live-demo.html](assets/live-demo.html). The animated overview is also available at [assets/demo.svg](assets/demo.svg). To record a longer walkthrough, use [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
 
+Social preview image: [assets/social-preview.png](assets/social-preview.png).
+
 ## Quick Start
 
 ```bash
@@ -233,6 +235,7 @@ Out of scope:
 │   └── live-demo.html
 ├── docs/
 │   ├── DEMO_SCRIPT.md
+│   ├── LAUNCH_CAMPAIGN.md
 │   ├── LAUNCH_PLAN.md
 │   ├── PROMOTION_COPY.md
 │   └── TROUBLESHOOTING.md

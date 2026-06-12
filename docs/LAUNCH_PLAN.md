@@ -24,6 +24,8 @@ hermes-agent, browser-automation, computer-use, chrome-automation, macos, cuadri
 
 Give Hermes Agent the missing playbook for logged-in Chrome sessions, native macOS UI, file uploads, and human verification boundaries.
 
+For the active launch sequence, use [LAUNCH_CAMPAIGN.md](LAUNCH_CAMPAIGN.md).
+
 ## Why People May Star It
 
 - Many agent demos fail on real logged-in websites.
