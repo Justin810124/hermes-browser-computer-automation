@@ -25,6 +25,8 @@ The skill defines a simple decision tree:
 
 It is intentionally not a CAPTCHA or anti-bot bypass project. It is a user-in-the-loop automation playbook for real desktop workflows.
 
+The README includes a demo overview and a recording script for a real Chrome walkthrough.
+
 Repo: https://github.com/Justin810124/hermes-browser-computer-automation
 ```
 
@@ -37,6 +39,7 @@ It helps agents handle logged-in workflows, form filling, uploads, and native UI
 
 Not stealth. Not bypass. User-in-the-loop desktop automation.
 
+Demo overview in the README:
 https://github.com/Justin810124/hermes-browser-computer-automation
 ```
 

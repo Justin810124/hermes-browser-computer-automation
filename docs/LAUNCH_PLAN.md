@@ -56,7 +56,7 @@ Use:
 1. Create a public GitHub repository. Done.
 2. Push the current folder as the initial version. Done.
 3. Add practical recipes. Done for Fiverr, Shopify, WordPress, and generic uploads.
-4. Add a clear demo GIF or short screen recording.
+4. Add a clear demo GIF or short screen recording. Animated overview done; real Chrome recording still useful.
 5. Open 5-10 good first issues before announcing.
 6. Publish a short post explaining the problem:
    - "Why agents fail on real browser tasks"
@@ -68,7 +68,7 @@ Use:
 
 Use these as GitHub issues:
 
-1. Add a 60-second demo GIF to the README.
+1. Replace the animated overview with a real 60-second Chrome demo GIF.
 2. Add Windows UI Automation notes.
 3. Add Linux desktop automation notes.
 4. Add a Google Workspace recipe.
@@ -97,6 +97,8 @@ Use these as GitHub issues:
 - Doctor script
 - Promotion copy
 - Demo screenshots
+- Animated demo overview
+- Real demo recording script
 
 ### v0.3
 

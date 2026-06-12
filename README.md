@@ -6,6 +6,10 @@
 
 A practical Hermes Agent skill for operating real Chrome sessions and macOS UI workflows: logged-in websites, form filling, seller dashboards, file uploads, gallery setup, and multi-step web tasks.
 
+![Demo overview](assets/demo.svg)
+
+This demo is an animated overview. To record a real Chrome walkthrough, use [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
+
 ## Quick Start
 
 ```bash
@@ -224,6 +228,7 @@ Out of scope:
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 ├── docs/
+│   ├── DEMO_SCRIPT.md
 │   ├── LAUNCH_PLAN.md
 │   ├── PROMOTION_COPY.md
 │   └── TROUBLESHOOTING.md
